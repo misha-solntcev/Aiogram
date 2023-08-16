@@ -1,12 +1,15 @@
+from config import load_config
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram.types import ContentType
 from aiogram import F
 
-TOKEN: str = "6279685448:AAGU22Rs1BEKA4bEZMoOL80JY05C_ayITWw"
+config = load_config('.env')
+bot_token = config.tg_bot.token
+admin_id = config.tg_bot.admin_id
 
-bot: Bot = Bot(token=TOKEN)
+bot: Bot = Bot(token=bot_token)
 dp: Dispatcher = Dispatcher()
 
 # Хэндлер на команду /start
@@ -23,6 +26,7 @@ async def process_help_command(message: Message):
 # Эхо хэндлер на фото
 @dp.message(F.photo)
 async def send_photo_echo(message: Message):
+    print(message.model_dump_json(indent=4, exclude_none=True))
     await message.reply_photo(message.photo[0].file_id)
 
 # Этот хэндлер будет срабатывать на любые ваши сообщения,
