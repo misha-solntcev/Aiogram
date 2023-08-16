@@ -1,7 +1,7 @@
 import asyncio
 from aiogram import Bot, Dispatcher
 from config import Config, load_config
-import user_handlers, other_handlers
+import handler_start, handler_other, handler_shedule
 
 # Функция конфигурирования и запуска бота
 async def main() -> None:
@@ -11,8 +11,9 @@ async def main() -> None:
     dp: Dispatcher = Dispatcher()
 
     # Регистриуем роутеры в диспетчере
-    dp.include_router(user_handlers.router)
-    dp.include_router(other_handlers.router)
+    dp.include_router(handler_start.router)
+    dp.include_router(handler_shedule.router)
+    dp.include_router(handler_other.router)
 
     # Пропускаем накопившиеся апдейты и запускаем polling
     await bot.delete_webhook(drop_pending_updates=True)
