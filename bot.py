@@ -17,7 +17,7 @@ async def main() -> None:
                '[%(asctime)s] - %(name)s - %(message)s')
     logger.info('Starting bot')
 
-    config = load_config('.env')
+    config: Config = load_config('.env')
     bot: Bot = Bot(config.tg_bot.token, parse_mode='HTML')
     dp: Dispatcher = Dispatcher()
 
