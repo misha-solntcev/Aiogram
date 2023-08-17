@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import sqlite3
 
 db = sqlite3.connect('DB\db.db')
-cursor = db.cursor()
+cur = db.cursor()
 
 with open("DB\Data.html", 'r', encoding="utf-8") as file:
     src = file.read()
@@ -41,13 +41,13 @@ for row in rows:
         schedule_dict[date].append([time, subject, lesson, location, teacher])
 
 # Создаем таблицу
-cursor.execute("""CREATE TABLE IF NOT EXISTS shedule
+cur.execute("""CREATE TABLE IF NOT EXISTS shedule
             (date, time, subject, lesson, location, teacher)""")
 
 # Записываем данные из словаря в БД
 for date in schedule_dict:
     for item in schedule_dict[date]:
-        cursor.execute("INSERT INTO shedule VALUES (?, ?, ?, ?, ?, ?)",
+        cur.execute("INSERT INTO shedule VALUES (?, ?, ?, ?, ?, ?)",
             (date, item[0], item[1], item[2], item[3], item[4]))
 
 db.commit()

@@ -3,7 +3,8 @@ from asyncio import Task
 import logging
 from aiogram import Bot, Dispatcher
 from config import Config, load_config
-from handlers import handler_start, handler_other, handler_shedule, handler_game
+from handlers import handler_start, handler_other, handler_shedule
+from DB import sqlite
 
 # Инициализируем логгер
 logger = logging.getLogger(__name__)
@@ -17,6 +18,9 @@ async def main() -> None:
                '[%(asctime)s] - %(name)s - %(message)s')
     logger.info('Starting bot')
 
+    async def on_startup(_):
+        print('Bot starting!')
+
     config: Config = load_config('.env')
     bot: Bot = Bot(config.tg_bot.token, parse_mode='HTML')
     dp: Dispatcher = Dispatcher()
@@ -24,10 +28,10 @@ async def main() -> None:
     # Регистриуем роутеры в диспетчере
     dp.include_router(handler_start.router)
     dp.include_router(handler_shedule.router)
-    dp.include_router(handler_game.router)
     dp.include_router(handler_other.router)
 
     # Пропускаем накопившиеся апдейты и запускаем polling
+    await on_startup(sqlite.db_start())
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
