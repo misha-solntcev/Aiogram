@@ -9,6 +9,9 @@ from DB import sqlite
 # Инициализируем логгер
 logger = logging.getLogger(__name__)
 
+async def on_startup(_):
+        print('Bot starting!')
+
 # Функция конфигурирования и запуска бота
 async def main() -> None:
     # Конфигурируем логирование
@@ -17,9 +20,6 @@ async def main() -> None:
         format='%(filename)s:%(lineno)d #%(levelname)-8s '
                '[%(asctime)s] - %(name)s - %(message)s')
     logger.info('Starting bot')
-
-    async def on_startup(_):
-        print('Bot starting!')
 
     config: Config = load_config('.env')
     bot: Bot = Bot(config.tg_bot.token, parse_mode='HTML')
