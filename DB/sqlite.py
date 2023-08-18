@@ -1,10 +1,8 @@
 import sqlite3
-# from config import Config, load_config
-# config: Config = load_config('.env')
 
 
 # создаём класс для работы с базой данных
-class DB:
+class Db:
     # конструктор класса
     def __init__(self):
         # соединяемся с файлом базы данных
@@ -16,6 +14,7 @@ class DB:
             "CREATE TABLE IF NOT EXISTS shedule (id INTEGER PRIMARY KEY, date, time, subject, lesson, location, teacher)")
         # сохраняем сделанные изменения в базе
         self.conn.commit()
+        print('Database successfully connected...')
 
     # деструктор класса
     def __del__(self):
@@ -31,13 +30,19 @@ class DB:
         # возвращаем сроки с записями расходов
         return rows
 
+    # * Мой метод. Вывод всех уникальных дат
+    def view_dates(self):
+        # выбираем все уникальные даты
+        self.cur.execute("SELECT DISTINCT date FROM shedule")
+        dates = self.cur.fetchall()
+        return dates
+
     # добавляем новую запись
     def insert(self, date, time, subject, lesson, location, teacher):
         # формируем запрос с добавлением новой записи в БД
         self.cur.execute("INSERT INTO shedule VALUES (NULL,?,?,?,?,?,?)", (date, time, subject, lesson, location, teacher,))
         # сохраняем изменения
         self.conn.commit()
-
 
     # обновляем информацию о расписании
     def update(self, id, date, time, subject, lesson, location, teacher):
@@ -54,14 +59,9 @@ class DB:
         self.conn.commit()
 
     # ищем запись по дате
-    def search(self, date="", price=""):
+    def search(self, date=""):
         # формируем запрос на поиск по точному совпадению
         self.cur.execute("SELECT * FROM shedule WHERE date=?", (date,))
         # формируем полученные строки и возвращаем их как ответ
         rows = self.cur.fetchall()
         return rows
-
-# создаём экземпляр базы данных на основе класса
-db = DB()
-
-print(db.view())

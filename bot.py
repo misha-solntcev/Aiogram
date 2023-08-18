@@ -4,7 +4,6 @@ import logging
 from aiogram import Bot, Dispatcher
 from config import Config, load_config
 from handlers import handler_start, handler_other, handler_shedule
-from DB import sqlite
 
 # Инициализируем логгер
 logger = logging.getLogger(__name__)
@@ -31,7 +30,6 @@ async def main() -> None:
     dp.include_router(handler_other.router)
 
     # Пропускаем накопившиеся апдейты и запускаем polling
-    await on_startup(sqlite.db_start())
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 

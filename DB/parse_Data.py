@@ -47,7 +47,7 @@ cur.execute("""CREATE TABLE IF NOT EXISTS shedule
 # Записываем данные из словаря в БД
 for date in schedule_dict:
     for item in schedule_dict[date]:
-        cur.execute("INSERT INTO shedule VALUES (NULL, ?, ?, ?, ?, ?, ?)",
+        cur.execute("INSERT INTO shedule VALUES (NULL,?,?,?,?,?,?)",
             (date, item[0], item[1], item[2], item[3], item[4]))
 
 db.commit()
