@@ -3,8 +3,7 @@ from aiogram.filters import Command
 from aiogram.types import Message, KeyboardButton
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 from keyboards import shed_kb
-import sqlite3 as sq
-from config import Config, load_config
+from DB.sqlite import Db
 
 # Инициализируем роутер уровня модуля
 router: Router = Router()
@@ -14,190 +13,114 @@ router: Router = Router()
 async def process_button_command(message: Message):
     await message.answer(text='Ловите расписание лекций', reply_markup=shed_kb)
 
-
-config: Config = load_config('.env')
-db = sq.connect(config.db.database)
-cur = db.cursor()
-query = cur.execute("SELECT DISTINCT date FROM shedule").fetchall()
+db = Db()
+query = db.view_dates()
 dates = [row[0] for row in query]
-db.close()
 
 @router.message(F.text == dates[0])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[0],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[0])
     for item in query:
-        await message.answer(text=str(item), reply_markup=shed_kb)
+        await message.answer(text=str(item))
 
 @router.message(F.text == dates[1])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[1],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[1])
     for item in query:
-        await message.answer(text=str(item), reply_markup=shed_kb)
+        await message.answer(text=str(item))
 
 @router.message(F.text == dates[2])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[2],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[2])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[3])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[3],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[3])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[4])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[4],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[4])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[5])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[5],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[5])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[6])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[6],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[6])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[7])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[7],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[7])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[8])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[8],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[8])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[9])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[9],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[9])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[10])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[10],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[10])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[11])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[11],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[11])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[12])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[12],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[12])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[13])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[13],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[13])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[14])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[14],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[14])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[15])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[15],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[15])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[16])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[16],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[16])
     for item in query:
         await message.answer(text=str(item))
 
 @router.message(F.text == dates[17])
 async def process_reply_command(message: Message):
-    config: Config = load_config('.env')
-    db = sq.connect(config.db.database)
-    cur = db.cursor()
-    query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[17],)).fetchall()
-    db.close()
+    query = db.search_bydate(dates[17])
     for item in query:
         await message.answer(text=str(item))

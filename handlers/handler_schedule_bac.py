@@ -30,7 +30,7 @@ async def process_reply_command(message: Message):
     query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[0],)).fetchall()
     db.close()
     for item in query:
-        await message.answer(text=str(item), reply_markup=shed_kb)
+        await message.answer(text=str(item))
 
 @router.message(F.text == dates[1])
 async def process_reply_command(message: Message):
@@ -40,7 +40,7 @@ async def process_reply_command(message: Message):
     query = cur.execute(f"SELECT time, subject, lesson, location, teacher FROM shedule WHERE date = ?", (dates[1],)).fetchall()
     db.close()
     for item in query:
-        await message.answer(text=str(item), reply_markup=shed_kb)
+        await message.answer(text=str(item))
 
 @router.message(F.text == dates[2])
 async def process_reply_command(message: Message):

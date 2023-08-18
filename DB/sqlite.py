@@ -58,10 +58,18 @@ class Db:
         # сохраняем изменения
         self.conn.commit()
 
-    # ищем запись по дате
+    # * Непонятный метод. // ищем запись по дате и выводим всю строку
     def search(self, date=""):
         # формируем запрос на поиск по точному совпадению
         self.cur.execute("SELECT * FROM shedule WHERE date=?", (date,))
+        # формируем полученные строки и возвращаем их как ответ
+        rows = self.cur.fetchall()
+        return rows
+
+    # * Мой метод. Ищем запись по дате и выводит строки без id и даты.
+    def search_bydate(self, date=""):
+        # формируем запрос на поиск по точному совпадению
+        self.cur.execute("SELECT time, subject, lesson, location, teacher FROM shedule WHERE date=?", (date,))
         # формируем полученные строки и возвращаем их как ответ
         rows = self.cur.fetchall()
         return rows
