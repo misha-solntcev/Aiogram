@@ -4,7 +4,7 @@ import sqlite3
 db = sqlite3.connect('DB\db.db')
 cur = db.cursor()
 
-with open("DB\Data.html", 'r', encoding="utf-8") as file:
+with open("DB\_Data.html", 'r', encoding="utf-8") as file:
     src = file.read()
 
 soup = BeautifulSoup(src, 'lxml')
@@ -36,6 +36,7 @@ for row in rows:
         location = location_row.text.strip()
     if teacher_row is not None:
         teacher = (" ".join((teacher_row.text).split()))
+
 
         # Добавление данных в словарь
         schedule_dict[date].append([time, subject, lesson, location, teacher])

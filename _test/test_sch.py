@@ -6,7 +6,7 @@ from asyncio import Task
 import logging
 from aiogram import Bot, Dispatcher
 from config import Config, load_config
-from handlers import handler_start, handler_other, handler_shedule, handler_game
+from handlers import handler_schedule, handler_start, handler_other, handler_game
 
 # Инициализируем логгер
 logger = logging.getLogger(__name__)
@@ -31,7 +31,7 @@ async def main() -> None:
 
     # Регистриуем роутеры в диспетчере
     dp.include_router(handler_start.router)
-    dp.include_router(handler_shedule.router)
+    dp.include_router(handler_schedule.router)
     dp.include_router(handler_game.router)
     # dp.include_router(handler_other.router)
 

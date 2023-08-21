@@ -14,12 +14,13 @@ class Db:
             "CREATE TABLE IF NOT EXISTS shedule (id INTEGER PRIMARY KEY, date, time, subject, lesson, location, teacher)")
         # сохраняем сделанные изменения в базе
         self.conn.commit()
-        print('Database successfully connected...')
+        print('Database connected successfully ...')
 
     # деструктор класса
     def __del__(self):
         # отключаемся от базы при завершении работы
         self.conn.close()
+        print('Database disconnected ...')
 
     # просмотр всех записей
     def view(self):
@@ -70,6 +71,22 @@ class Db:
     def search_bydate(self, date=""):
         # формируем запрос на поиск по точному совпадению
         self.cur.execute("SELECT time, subject, lesson, location, teacher FROM shedule WHERE date=?", (date,))
+        # формируем полученные строки и возвращаем их как ответ
+        rows = self.cur.fetchall()
+        return rows
+
+    # * Мой метод. Получаем данные по имени из таблицы phonebook
+    def select_phonebook_name(self, name=""):
+        # формируем запрос на поиск по точному совпадению
+        self.cur.execute("SELECT position, department, location, phone, email, href FROM phonebook WHERE name=?", (name,))
+        # формируем полученные строки и возвращаем их как ответ
+        rows = self.cur.fetchall()
+        return rows
+
+    # * Мой метод. Получаем данные по имени из таблицы phonebook
+    def select_phonebook_id(self, id=""):
+        # формируем запрос на поиск по точному совпадению
+        self.cur.execute("SELECT name, position, department, location, phone, email, href FROM phonebook WHERE id=?", (id,))
         # формируем полученные строки и возвращаем их как ответ
         rows = self.cur.fetchall()
         return rows

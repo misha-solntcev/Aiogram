@@ -1,8 +1,13 @@
 from DB.sqlite import Db
 
+
 db = Db()
-query = db.view_dates()
-dates = [row[0] for row in query]
+count = 0
+for i in range (1, 735):
+    query_name = db.select_phonebook_id(i)
+    print(query_name[0][0], query_name[0][6][3:])
+    count += 1
+    if query_name[0][0] != query_name[0][6][3:]:
+        print(count, False)
 
-
-print(dates)
+print("Сравнение окончено")
