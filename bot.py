@@ -3,7 +3,7 @@ from asyncio import Task
 import logging
 from aiogram import Bot, Dispatcher
 from config import Config, load_config
-from handlers import handler_start, handler_schedule, handler_other, hanlder_ischedule
+from handlers import handler_start, handler_schedule, handler_other, hanlder_ischedule, handler_phonebook
 
 # Инициализируем логгер
 logger = logging.getLogger(__name__)
@@ -25,7 +25,7 @@ async def main() -> None:
     dp.include_router(handler_start.router)
     dp.include_router(handler_schedule.router)
     dp.include_router(hanlder_ischedule.router)
-    dp.include_router(handler_other.router)
+    dp.include_router(handler_phonebook.router)
 
     # Пропускаем накопившиеся апдейты и запускаем polling
     await bot.delete_webhook(drop_pending_updates=True)

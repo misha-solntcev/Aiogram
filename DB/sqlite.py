@@ -90,3 +90,11 @@ class Db:
         # формируем полученные строки и возвращаем их как ответ
         rows = self.cur.fetchall()
         return rows
+
+    # * Мой метод. Получаем данные по имени от базе данных с использованием частичного соответствия
+    def search_byname(self, search_term):
+        # формируем запрос на поиск с использованием частичного соответствия
+        self.cur.execute("SELECT id, name FROM phonebook WHERE name LIKE ?", (f'%{search_term}%',))
+        # формируем полученные строки и возвращаем их как ответ
+        rows = self.cur.fetchall()
+        return rows

@@ -16,7 +16,6 @@ db = Db()
 query = db.view_dates()
 dates = [row[0] for row in query]
 
-
 # Хэндлер на update типа CallbackQuery
 @router.callback_query(F.data.in_(dates))
 async def ibtn(callback: CallbackQuery):
