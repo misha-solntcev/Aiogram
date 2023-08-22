@@ -98,3 +98,19 @@ class Db:
         # формируем полученные строки и возвращаем их как ответ
         rows = self.cur.fetchall()
         return rows
+
+    # * Мой метод. Выводит все записи поля name.
+    def search_all_name(self):
+        # формируем запрос
+        self.cur.execute("SELECT name FROM phonebook")
+        # формируем полученные строки и возвращаем их как ответ
+        rows = self.cur.fetchall()
+        return rows
+
+    # * Мой метод. Выводит все записи поля id.
+    def search_all_id(self):
+        # формируем запрос
+        self.cur.execute("SELECT id FROM phonebook")
+        # формируем полученные строки и возвращаем их как ответ
+        rows = self.cur.fetchall()
+        return rows

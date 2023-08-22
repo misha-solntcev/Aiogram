@@ -2,11 +2,11 @@ from DB.sqlite import Db
 
 
 db = Db()
-query = db.search_byname('Михаил')
+query = db.select_phonebook_id(10)
+# ids = [str(row[0]) for row in query]
+
+print((str(query[0])), type(str(query[0])))
 
 
-
-for i in range(len(query)):
-    id = str(query[i][0])
-    name = query[i][1]
-    print(id,name)
+# for item in ids:
+#     print(item)

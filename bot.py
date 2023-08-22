@@ -3,7 +3,7 @@ from asyncio import Task
 import logging
 from aiogram import Bot, Dispatcher
 from config import Config, load_config
-from handlers import handler_start, handler_schedule, handler_other, hanlder_ischedule, handler_phonebook
+from handlers import handler_start, handler_schedule, hanlder_ischedule, handler_phonebook
 
 # Инициализируем логгер
 logger = logging.getLogger(__name__)
