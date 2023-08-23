@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-import requests
 import sqlite3
 
 db = sqlite3.connect('DB\db.db')

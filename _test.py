@@ -2,11 +2,14 @@ from DB.sqlite import Db
 
 
 db = Db()
-query = db.select_phonebook_id(10)
-# ids = [str(row[0]) for row in query]
-
-print((str(query[0])), type(str(query[0])))
+link = db.get_2gis_link(2)[0][0]
+print(link)
 
 
-# for item in ids:
-#     print(item)
+query = db.view_dates()
+dates = [row[0] for row in query]
+query = db.search_bydate(dates[0])
+
+for item in query:
+    num_build = int(item[3].split('-')[0])
+    print(num_build, type(num_build))

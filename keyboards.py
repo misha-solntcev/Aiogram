@@ -1,6 +1,6 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import KeyboardButton
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from DB.sqlite import Db
 
@@ -33,12 +33,3 @@ for item in dates:
 # Распаковываем список с кнопками в билдер по 2 в ряд
 kb_builder.row(*buttons).adjust(2)
 ikeyboard = kb_builder.as_markup()
-
-
-
-# Инлайн-клавиатура ianswer
-kb_builder: InlineKeyboardBuilder = InlineKeyboardBuilder()
-buttons: list[InlineKeyboardButton] = []
-buttons.append(InlineKeyboardButton(text="инфо", callback_data="info"))
-buttons.append(InlineKeyboardButton(text="на карте", callback_data="map"))
-ianswer = kb_builder.add(*buttons).as_markup()

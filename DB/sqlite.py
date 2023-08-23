@@ -114,3 +114,11 @@ class Db:
         # формируем полученные строки и возвращаем их как ответ
         rows = self.cur.fetchall()
         return rows
+
+    # * Мой метод. Получает нужную ссылку 2gis.
+    def get_2gis_link(self, id=""):
+        # формируем запрос
+        self.cur.execute("SELECT link FROM gis WHERE id=?", (id,))
+        # формируем полученные строки и возвращаем их как ответ
+        rows = self.cur.fetchall()
+        return rows

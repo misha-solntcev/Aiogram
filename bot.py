@@ -15,7 +15,7 @@ async def main() -> None:
         level=logging.INFO,
         format='%(filename)s:%(lineno)d #%(levelname)-8s '
                '[%(asctime)s] - %(name)s - %(message)s')
-    logger.info('Starting bot')
+    logger.info('Bot starting')
 
     config: Config = load_config('.env')
     bot: Bot = Bot(config.tg_bot.token, parse_mode='HTML')
@@ -24,7 +24,7 @@ async def main() -> None:
     # Регистрируем роутеры в диспетчере
     dp.include_router(handler_start.router)
     dp.include_router(handler_schedule.router)
-    dp.include_router(hanlder_ischedule.router)
+    # dp.include_router(hanlder_ischedule.router)
     dp.include_router(handler_phonebook.router)
 
     # Пропускаем накопившиеся апдейты и запускаем polling
