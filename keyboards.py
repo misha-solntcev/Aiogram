@@ -33,3 +33,15 @@ for item in dates:
 # Распаковываем список с кнопками в билдер по 2 в ряд
 kb_builder.row(*buttons).adjust(2)
 ikeyboard = kb_builder.as_markup()
+
+
+# Инлайн-клавиатура ianswer. Кнопка со ссылкой формируется в зависимости
+# от номера корпуса текущего запроса.
+def get_kb_ianswer(num_build, teacher_id):
+    kb_builder: InlineKeyboardBuilder = InlineKeyboardBuilder()
+    buttons: list[InlineKeyboardButton] = []
+    buttons.append(InlineKeyboardButton(text="\U00002139 инфо", callback_data=teacher_id))
+    link = db.get_2gis_link(int(num_build))[0][0]
+    buttons.append(InlineKeyboardButton(text="\U0001F4CD на карте", url= link))
+    ianswer = kb_builder.add(*buttons).as_markup()
+    return ianswer

@@ -41,14 +41,16 @@ class Db:
     # добавляем новую запись
     def insert(self, date, time, subject, lesson, location, teacher):
         # формируем запрос с добавлением новой записи в БД
-        self.cur.execute("INSERT INTO shedule VALUES (NULL,?,?,?,?,?,?)", (date, time, subject, lesson, location, teacher,))
+        self.cur.execute("INSERT INTO shedule VALUES (NULL,?,?,?,?,?,?)",
+                        (date, time, subject, lesson, location, teacher,))
         # сохраняем изменения
         self.conn.commit()
 
     # обновляем информацию о расписании
     def update(self, id, date, time, subject, lesson, location, teacher):
         # формируем запрос на обновление записи в БД
-        self.cur.execute("UPDATE shedule SET date=?, time=?, subject=?, lesson=?, location=?, teacher=? WHERE id=?", (date, time, subject, lesson, location, teacher, id,))
+        self.cur.execute("UPDATE shedule SET date=?, time=?, subject=?, lesson=?, location=?, teacher=? WHERE id=?",
+                         (date, time, subject, lesson, location, teacher, id,))
         # сохраняем изменения
         self.conn.commit()
 
@@ -119,6 +121,14 @@ class Db:
     def get_2gis_link(self, id=""):
         # формируем запрос
         self.cur.execute("SELECT link FROM gis WHERE id=?", (id,))
+        # формируем полученные строки и возвращаем их как ответ
+        rows = self.cur.fetchall()
+        return rows
+
+    # * Мой метод. Получает нужную ссылку 2gis.
+    def get_teacher_id(self, name=""):
+        # формируем запрос
+        self.cur.execute("SELECT id FROM phonebook WHERE name=?", (name,))
         # формируем полученные строки и возвращаем их как ответ
         rows = self.cur.fetchall()
         return rows

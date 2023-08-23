@@ -47,7 +47,7 @@ ids = [str(row[0]) for row in query]
 # Обрабочик обратного вызова для выбранного контакта
 @router.callback_query(F.data.in_(ids))
 async def show_contact(callback: CallbackQuery):
-    print(callback.model_dump_json(indent=4, exclude_none=True))
+    # print(callback.model_dump_json(indent=4, exclude_none=True))
     query = db.select_phonebook_id(callback.data)
     for item in query:
         await callback.message.answer(
